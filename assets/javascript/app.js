@@ -27,12 +27,11 @@ function initialize(location)
 
     	// Eventful API
 
-		var eventfulApiKey = "wwBJT6fHmcLQCH4G";
+		/*var eventfulApiKey = "";
     		
     $.ajax({
               method: "GET",
-              dataType: "json",
-              url: "http://api.eventful.com/rest/events/search?location=phoenix" + "&app_key=" + eventfulApiKey,
+              url: "http://api.eventful.com/rest/events/search?location=" + city + "&app_key=wwBJT6fHmcLQCH4G",
            }).done(function(result){
                     
                     console.log(result);
@@ -41,7 +40,8 @@ function initialize(location)
         	
         			console.log("error", error.statusText);
            });
-      	}
+      	*/
+      }
 
 		
 
@@ -51,9 +51,6 @@ $(document).ready(function()
 				navigator.geolocation.getCurrentPosition(initialize);
 
 		
-
-
-
 // Grab input value from ***City Search*** bar and store as a variable ***Global***
 
 // Convert var into proper string to search Google Maps Api
@@ -88,36 +85,68 @@ $(document).ready(function()
         //Return input to original placeholder
         $("#city-input").val("City...");
           // prevent page from refreshing when user hits enter
-        return false;
-
+        
+        console.log(city);
         // API call for the weather
-		var weatherURL = "api.openweathermap.org/data/2.5/weather?q=" + $("#city-input").val().trim() + "&APPID=ad2049df345f2733661921d3ca7a05f5";
+		var weatherURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=ad2049df345f2733661921d3ca7a05f5";
         
         // Performing our AJAX GET request
 	    $.ajax({
-	       	  method: "GET",
-	          dataType: "json",
-	          url: weatherURL,
-	          
-	        	})
+	    	  url: weatherURL,
+	       	  method: "GET"
+	       	  })
 	        // After the data comes back from the API
 	        .done(function(response) {
 					console.log(response);
+					var main = response.main.temp;
+					///append to div
 
-
+					var mainDisplay = $('#weather').html("Current Weather: "  + parseInt((1.8*(main - 273) + 32)) + "&#8457");
 	        	})
 	        .fail(function(error){
-	        	console.log("error", error.responseText);
+	        	console.log("error", error);
 	        	});
-	    });
+
+	    // End Weather GET
+	    // Create Event API variable
+	    var eventURL = "http://api.eventful.com/json/events/search?location=" + city + "&app_key=wwBJT6fHmcLQCH4G";
+	    // Begin Event GET
+		$.ajax({
+	    	  url: eventURL,
+	       	  method: "GET"
+	       	  })
+	        // After the data comes back from the API
+	        .done(function(response) {
+					console.log(response);
+           	  })
+	        .fail(function(error){
+	        	console.log("error", error);
+	        	});	    
+
+
+
+
+
+
+
+
+	            });
+
+
+
+
+
+
+
 // when user input is added to Firebase, append the stored values to the page
     database.ref().on("child_added", function(childSnapshot) {
 
     	$(".added-city").append("<tr>+<td>" + childSnapshot.val().city + "<td>" + childSnapshot.val().dateAdded + "<td>");
-
-
     });
 
 });
+   
+
+
 
 
