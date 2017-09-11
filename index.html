@@ -23,7 +23,7 @@
   <h1 class="display-3">Event Hub  <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></h1>
   <p class="lead"><br>Your center for events near you.</p></div>
   
-  <div class="container">
+  <div class="container-fluid">
     <hr class="my-4">
       <p>Type in a city and watch the magic happen!<br>
       </p>
@@ -39,31 +39,39 @@
       </div>
     </div>
   </div>
-  </div>
+  
   <br>
+  			  <div id="weather">		    
+
+		      </div><!--end weather div-->
+		      <!--Begin canvas for Google Map-->
     <div class="jumbotron" id="map-canvas">
     </div>
+    <!--end canvas jumbotron-->
     <br>
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-offset-2 col-md-5">
+      		  <div class="table responsive" id="panel-heading">
+      		  <h2>Recent User Searches!</h2>
       		  <div id="recent-search">
-      		  	<table class="table added-city">
+      		  	<table class="table table-hover warning added-city">
 		            <tr>
 		                <th>City Name</th>
 		                <th>When</th>
 					</tr>
+				</table>
       		  </div><!--end recent user search div-->
-
-		      <div id="weather">
+			  </div><!--end resposive table div-->	
+			 </div><!--end col div-->
 		    
 
-		      </div><!--end weather div-->
+		     
 
 		      <div id="events">
 		    
 
 		      </div><!--end events div-->
-    </div><!--end col div-->
+   
   </div><!--end row div-->
 
 </div>

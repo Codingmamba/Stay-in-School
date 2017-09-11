@@ -20,32 +20,26 @@ function initialize(location)
 			            position: mapOptions.center,
 			            map: map,
 			            icon: im
-			        });
-				
-				
-    		
+			        });		
 
-    	// Eventful API
 
-		/*var eventfulApiKey = "";
-    		
-    $.ajax({
-              method: "GET",
-              url: "http://api.eventful.com/rest/events/search?location=" + city + "&app_key=wwBJT6fHmcLQCH4G",
-           }).done(function(result){
-                    
-                    console.log(result);
-
-           }).fail(function(error){
-        	
-        			console.log("error", error.statusText);
-           });
-      	*/
       }
 
-		
 
+//New Google map based off user input
+function newMap(response) 
+		{
+					// create var for latitude from API weather response
+					var lat = response.coord.lat;
+					// create var for longitude from API weather response
+					var long = response.coord.lon;
+					var latlng = new google.maps.LatLng(lat, long);
+						map = new google.maps.Map(document.getElementById('map'), {
+						  center: latlng,
+						  zoom: 12
+						});
 
+		}
 $(document).ready(function()
 		{
 				navigator.geolocation.getCurrentPosition(initialize);
@@ -97,23 +91,36 @@ $(document).ready(function()
 	       	  })
 	        // After the data comes back from the API
 	        .done(function(response) {
+
 					console.log(response);
 					var main = response.main.temp;
-					///append to div
+					var insertBreak = $("<br>");
+					// var currentConditions = response.weather[0];
+					//append to div
 
-					var mainDisplay = $('#weather').html("Current Weather: "  + parseInt((1.8*(main - 273) + 32)) + "&#8457");
-	        	})
+					var mainDisplay = $('#weather').html("Temperature: "  + parseInt((1.8*(main - 273) + 32)) + "&#8457");
+					
+					var insertBreak = $('#weather').append(insertBreak);
+					// var ccDisplay = $('#weather').append("Current Conditions: "  + currentConditions);
+					
+				})
 	        .fail(function(error){
 	        	console.log("error", error);
 	        	});
 
+					
+
 	    // End Weather GET
 	    // Create Event API variable
-	    var eventURL = "http://api.eventful.com/json/events/search?location=" + city + "&app_key=wwBJT6fHmcLQCH4G";
+	    // console log city to see if we get back before event API
+	        console.log(city);
+	        
+	    var eventURL = "https://api.eventful.com/json/events/search?location=" + city + "&app_key=wwBJT6fHmcLQCH4G";
 	    // Begin Event GET
 		$.ajax({
 	    	  url: eventURL,
-	       	  method: "GET"
+	       	  method: "GET",
+	       	  dataType: "json"
 	       	  })
 	        // After the data comes back from the API
 	        .done(function(response) {
@@ -139,9 +146,12 @@ $(document).ready(function()
 
 
 // when user input is added to Firebase, append the stored values to the page
-    database.ref().on("child_added", function(childSnapshot) {
-
-    	$(".added-city").append("<tr>+<td>" + childSnapshot.val().city + "<td>" + childSnapshot.val().dateAdded + "<td>");
+    database.ref().on("child_added", function(childSnapshot)
+     {
+     	// clean TIMESTAMP server value using moment.js
+    	var cleanTime = moment(childSnapshot.val().dateAdded).format('MMMM Do YYYY, h:mm:ss a');
+    	// append added city and cleanTime to Table
+    	$(".added-city").append("<tr>+<td>" + childSnapshot.val().city + "<td>" + cleanTime + "<td>");
     });
 
 });
