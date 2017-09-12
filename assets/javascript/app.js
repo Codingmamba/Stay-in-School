@@ -235,4 +235,44 @@ $(document).ready(function()
 
 
 
+/* var cityWeather = [];
 
+var city = $(this).attr("data-name");
+        var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&APPID=fa395f95eca5e15cd961266c92175840";
+
+        // Creating an AJAX call for the specific movie button being clicked
+        $.ajax({
+          url: queryURL,
+          method: "GET"
+        }).done(function(response) {
+
+         var weatherDiv = $("#weather");
+
+         weatherDiv.attr("data-name", cityWeather);
+
+            // Storing the rating data
+          var weather = response.main.temp;
+
+          // Creating an element to have the rating displayed
+          var pOne = $(weatherDiv).html("Weather: " + parseInt((1.8*(weather - 273) + 32)) + "&#8457");
+
+          weatherDiv.append(pOne);
+
+    	$(".added-city").append("<tr>+<td>" + childSnapshot.val().city + "<td>" + childSnapshot.val().dateAdded + "<td>");
+
+          $("#weather").text(weatherDiv);  
+        });
+
+        $(".btn-secondary").on("click", function(event) {
+        event.preventDefault();
+
+        //$("#movie-input").val().trim();
+        
+    });
+
+});
+
+        cityWeather.push(city);
+
+        });  
+ */

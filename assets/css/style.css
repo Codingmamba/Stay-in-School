@@ -1,3 +1,31 @@
+<<<<<<< HEAD
+=======
+
+
+<<<<<<< HEAD
+html, body, #map-canvas {
+	height:400px; margin:0; padding:0; width: 100%;
+		}
+
+#map-canvas { 
+	position:absolute;  
+	z-index: 0;
+}		
+
+#search {
+	position: relative; 
+	z-index: 1; /* The z-index should be higher than Google Maps */
+	width: 300px;
+	height: auto;
+	opacity: .45; /* Set the opacity for a slightly transparent Google Form */ 
+	color: white;
+}
+=======
+#map-canvas {
+	height:250px; margin:0; padding:0; width: 100%;
+		}
+
+>>>>>>> 65c8660a72b6a3a7cd4befdc2290994764dcd2b3
 body{
 	background-color:#4e968b;
 	background-image: url("http://www.pptback.com/uploads/white-pattern-backgrounds-powerpoint.jpg");
@@ -63,6 +91,7 @@ img {
 #map-canvas {
 	height:250px; margin:0; padding:0; width: 100%;
 	background-color: white;
+<<<<<<< HEAD
 		}
 
 
@@ -71,3 +100,8 @@ img {
 	font-weight: bold;
 	font-size: 24px;
 }
+=======
+	border: orange;
+		}
+>>>>>>> f3b3f4644f9ed0897acddf76b2059b6645d9c4b4
+>>>>>>> 65c8660a72b6a3a7cd4befdc2290994764dcd2b3
