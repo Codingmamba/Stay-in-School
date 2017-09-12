@@ -1,19 +1,24 @@
 // Google API Key
 var apiKey = 'AIzaSyAEgVTABuoJteYHqrlpGO1aQ1TehkBg8X0';
+var lat = "";
+var long = "";
+var mapOptions = {};
+var im = "";
+
 function initialize(location)
 		{
 				console.log(location);
 				// var for circle image
-				var im = "assets/images/bluecircle.png";
+				im = "assets/images/bluecircle.png";
 				// Create variable for map options
-				var mapOptions = {
+				mapOptions = {
 					center: new google.maps.LatLng(location.coords.latitude, location.coords.longitude),
 					zoom: 12,
 					mapTypeId: google.maps.MapTypeId.ROADMAP
 				};
 
-				// Create ne wmap in jumbotron with id 'map-canvas'
-				map = new google.maps.Map(document.getElementById("map-canvas"),
+				// Create new map in jumbotron with id 'map-canvas'
+				var map = new google.maps.Map(document.getElementById("map-canvas"),
 						mapOptions);
 
 				var userMarker = new google.maps.Marker({
@@ -26,20 +31,7 @@ function initialize(location)
       }
 
 
-//New Google map based off user input
-function newMap(response) 
-		{
-					// create var for latitude from API weather response
-					var lat = response.coord.lat;
-					// create var for longitude from API weather response
-					var long = response.coord.lon;
-					var latlng = new google.maps.LatLng(lat, long);
-						map = new google.maps.Map(document.getElementById('map'), {
-						  center: latlng,
-						  zoom: 12
-						});
 
-		}
 $(document).ready(function()
 		{
 				navigator.geolocation.getCurrentPosition(initialize);
@@ -87,31 +79,58 @@ $(document).ready(function()
         // Performing our AJAX GET request
 	    $.ajax({
 	    	  url: weatherURL,
-	       	  method: "GET"
-	       	  })
+	       	  method: "GET",
+	       	  //New Google map based off user input
+	       	  success: function (response) 
+				{
+
+					// create var for latitude from API weather response
+					lat = response.coord.lat;
+					console.log(lat);
+					// create var for longitude from API weather response
+					long = response.coord.lon;
+					mapOptions = {
+						center: new google.maps.LatLng(lat, long),
+						zoom: 12,
+						mapTypeId: google.maps.MapTypeId.ROADMAP
+					};
+
+					var latlng = new google.maps.LatLng(lat, long);
+					var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+					im = "assets/images/bluecircle.png";
+					var userMarker = new google.maps.Marker({
+			            position: mapOptions.center,
+			            map: map,
+			            icon: im
+			        });		
+				}
+			  })	       	 
 	        // After the data comes back from the API
 	        .done(function(response) {
 
 					console.log(response);
 					var main = response.main.temp;
 					var insertBreak = $("<br>");
-					// var currentConditions = response.weather[0];
-					//append to div
-
+					var currentConditions = response.weather[0].description;
+					
 					var mainDisplay = $('#weather').html("Temperature: "  + parseInt((1.8*(main - 273) + 32)) + "&#8457");
 					
 					var insertBreak = $('#weather').append(insertBreak);
-					// var ccDisplay = $('#weather').append("Current Conditions: "  + currentConditions);
+					var ccDisplay = $('#weather').append("Current Conditions: "  + currentConditions);
+					
 					
 				})
+	        /*success(function(response) {
+	        		newMap();
+	        	})*/
 	        .fail(function(error){
 	        	console.log("error", error);
 	        	});
 
 					
 
-	    // End Weather GET
-	    // Create Event API variable
+		// End Weather GET
+	    
 	    // console log city to see if we get back before event API
 	        console.log(city);
 	        
@@ -124,7 +143,57 @@ $(document).ready(function()
 	       	  })
 	        // After the data comes back from the API
 	        .done(function(response) {
-					console.log(response);
+					console.log("response", response);
+					// Get event details from response
+					console.log(response.events.event[0].title);
+					console.log(response.events.event[0].venue_url);
+
+					var events = $("<div>");
+					//Create for loop for the data we want to extract
+					for (var i = 0; i < response.events.event.length; i++) {
+					// create variable equal to $("<div>");
+				
+						//create new div for each event and image
+						//create variable for the venue information	
+							
+						var image = response.events.event[i].image ? response.events.event[i].image.medium.url : null;
+
+						var imageCall = $("<img class='event-image'>").attr("src", image);
+
+							if (image === null) {
+								var imageBackUp = $("<img>").attr("src", "http://www.aal-europe.eu/wp-content/uploads/2013/12/events_medium.jpg");
+								events.append(imageBackUp);
+							}
+							else {
+								events.append(imageCall);
+							}
+
+						var title = response.events.event[i].title;
+						var titleCall = $("<h2>").html(title);	
+						    events.append(titleCall);	
+						
+
+						var venueName = response.events.event[i].venue_name;
+						var venNameCall = $("<h3>").html(venueName);
+						    events.append(venNameCall);	
+
+						var city = response.events.event[i].city_name;
+						var state = response.events.event[i].region_name;
+
+						var address = response.events.event[i].venue_address;
+						var addressCall = $("<p>").html("Event Address: " + address + '<br>' + city + ", " + state);
+						    events.append(addressCall);
+
+						var url = response.events.event[i].venue_url;
+						var urlCall = $("<a href='' target='_blank'><p>").html("Event Link: " + url);
+					    events.append(urlCall);
+						console.log(events);
+							
+
+				}
+
+				$("#events").html(events);
+		
            	  })
 	        .fail(function(error){
 	        	console.log("error", error);
@@ -148,6 +217,13 @@ $(document).ready(function()
 // when user input is added to Firebase, append the stored values to the page
     database.ref().on("child_added", function(childSnapshot)
      {
+/*     	 var cities = document.querySelector('.added-city')
+
+    cities.forEach(function(city, index) {
+        if (index > 10) {
+            cities.splice(index, 0);
+        }
+    });*/
      	// clean TIMESTAMP server value using moment.js
     	var cleanTime = moment(childSnapshot.val().dateAdded).format('MMMM Do YYYY, h:mm:ss a');
     	// append added city and cleanTime to Table
