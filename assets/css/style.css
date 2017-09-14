@@ -1,82 +1,66 @@
-<<<<<<< HEAD
-=======
-
-
-<<<<<<< HEAD
-html, body, #map-canvas {
-	height:400px; margin:0; padding:0; width: 100%;
-		}
-
-#map-canvas { 
-	position:absolute;  
-	z-index: 0;
-}		
-
-#search {
-	position: relative; 
-	z-index: 1; /* The z-index should be higher than Google Maps */
-	width: 300px;
-	height: auto;
-	opacity: .45; /* Set the opacity for a slightly transparent Google Form */ 
-	color: white;
-}
-=======
-#map-canvas {
-	height:250px; margin:0; padding:0; width: 100%;
-		}
-
->>>>>>> 65c8660a72b6a3a7cd4befdc2290994764dcd2b3
 body{
 	background-color:#4e968b;
-	background-image: url("http://www.pptback.com/uploads/white-pattern-backgrounds-powerpoint.jpg");
 }
 
-
-.jumbotron{
-	background-color: #206057;
-	width: 100%;
-	color: #FFAB00;
-    border-style: groove;
-    border-color: transparent;
+nav{
+    border-radius: 5px;
+    text-shadow: .25px .25px black;
+    opacity: .95;
+    font-family: 'Open Sans', sans-serif;
+    border-style:;
 }
 
-nav ul li:first-child { float: left; }
-
-nav ul li { 
-  list-style:none;
-  margin:10px;
-  float: right; 
-}
-
-}
-.links{
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-.display-3{
-	font-family: 'Tauri', sans-serif;
-	text-shadow: 2px 2px  #1E3C38;
-}
-
-.input-group-btn{
-	box-
-}
-
-
-.footer{
-	position: fixed;
-    bottom: 0;
-    right: 0;
-    height: 18px;
-    width: 100%;
-    background-color:#a0a5a5;
-    font-family: 'Source Serif Pro', serif;
-    font-size: 12px;
-}
+h2{
+    font-family: 'Tauri', sans-serif;
+    color:white;
+    text-shadow: 1px 1px  #1E3C38;
+    font-size: 24px;
+    opacity:.96;
+    }
 
 img {
     max-width: 30%;
     height: auto;
+}
+
+table{
+    border-radius: 25px;
+    border-color: transparent;
+    border-style: solid;
+    opacity:.95;
+}
+
+.jumbotron{
+    background-color: #206057;
+    width: 100%;
+    color: #FFAB00;
+    border-radius: 5px;
+    
+}
+
+.display-3{
+    font-family: 'Tauri', sans-serif;
+    text-shadow: 2px 2px  #1E3C38;
+}
+
+.img {
+    max-width: 30%;
+    height: auto;
+}
+
+.container{
+    color: white;
+}
+
+.footer{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    height: 18px;
+    width: 100%;
+    background-color:grey;
+    font-family: 'Source Serif Pro', serif;
+    font-size: 12px;
 }
 
 .item {
@@ -88,20 +72,60 @@ img {
     padding: 3px; 
 }
 
+.jumbotron-1{
+    position: center;
+    background-color: #206057;
+    color: black;
+
+    
+}
+
 #map-canvas {
 	height:250px; margin:0; padding:0; width: 100%;
 	background-color: white;
-<<<<<<< HEAD
-		}
+	z-index: 0;
+    box-shadow: 1px 1px black;
+    border-style: solid;
+    border-color:transparent;
+}
+	
+#search {
+    position: relative; 
+    z-index: 1; /* The z-index should be higher than Google Maps */
+    width: 200px;
+    height: auto;
+    opacity: .8;
+    color: black;
+}
 
+#recent-search{
+    opacity: .8;
+    font-family: 'Source Serif Pro', serif;
+}
 
 #weather {
-	font-family: 'Source Serif Pro', serif;
-	font-weight: bold;
-	font-size: 24px;
+    font-size: 24px;
+    height:250px; margin:0; padding:0; width: 100%;
+    background-color: white;
+    box-shadow: 1px 1px black;
+    border-style: solid;
+    border-color:transparent;
+    opacity: .85;
+    font-weight: lighter;
+    font-family: 'Source Serif Pro', serif;
+    text-shadow: 1px 1px #4e968b;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+
 }
-=======
-	border: orange;
-		}
->>>>>>> f3b3f4644f9ed0897acddf76b2059b6645d9c4b4
->>>>>>> 65c8660a72b6a3a7cd4befdc2290994764dcd2b3
+
+#events{
+    font-family: 'Tauri', sans-serif;
+    font-size: 28px;
+    text-shadow: 1px 1px black;
+    border-radius: 20px;
+    border-color: transparent;
+    border-style: solid;
+    opacity:.95;
+}
